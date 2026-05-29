@@ -1,0 +1,10 @@
+eureka:
+  instance:
+    hostname: localhost # hostname of the discovery service
+  client:
+    register-with-eureka: false # it (meaning the discovery service) should not register itself into itself
+    fetch-registry: false  # for the same reason, it should not fetch itself
+    service-url:
+      default-zone: http://${eureka.instance.hostname}/${server.port}/eureka/
+server:
+  port: 8761

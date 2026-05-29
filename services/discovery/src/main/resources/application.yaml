@@ -1,0 +1,5 @@
+spring:
+  config:
+    import: optional:configserver:http://localhost:8888 #the optional is used in case we can not find the config, and we don't want the app to fail
+  application:
+    name: discovery-service #this exact name should be used as a name of the file in the configurations folder in config-service msv
