@@ -6,6 +6,8 @@ import com.skymat.ecommerce.kafka.OrderConfirmation;
 import com.skymat.ecommerce.kafka.OrderProducer;
 import com.skymat.ecommerce.orderline.OrderLineRequest;
 import com.skymat.ecommerce.orderline.OrderLineService;
+import com.skymat.ecommerce.payment.PaymentClient;
+import com.skymat.ecommerce.payment.PaymentRequest;
 import com.skymat.ecommerce.product.ProductClient;
 import com.skymat.ecommerce.product.PurchaseRequest;
 import com.skymat.ecommerce.product.PurchaseResponse;
@@ -24,6 +26,7 @@ public class OrderService {
     private final OrderMapper mapper;
     private final OrderLineService orderLineService;
     private final OrderProducer orderProducer;
+    private final PaymentClient paymentClient;
 
     public Integer createOrder(OrderRequest request) {
         // check the customer-> using openFeign
@@ -50,6 +53,15 @@ public class OrderService {
         }
 
         //start payment process
+
+        var paymentRequest = new PaymentRequest(
+                request.amount(),
+                request.paymentMethod(),
+                order.getId(),
+                order.getReference(),
+                customer
+        );
+        paymentClient.requestOrderPayment(paymentRequest);
 
         // send the order confirmation --> (using notification ms(kafka))
         // we need to define the serializers for both the producer and the consumer

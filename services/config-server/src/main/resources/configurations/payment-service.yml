@@ -6,23 +6,17 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate # to rely on FlyWay to create the db
     database: POSTGRESQL
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-
+  config:
+    import: optional:configserver:http://localhost:8888
   kafka:
     producer:
       bootstrap-servers: localhost:9092 #the same configs we put for kafka server
       key-serializer: org.apache.kafka.common.serialization.StringSerializer #to tell Kafka what is the serializer of our msgs
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
-        spring.json.type.mapping: orderConfirmation:com.skymat.ecommerce.kafka.OrderConfirmation #the producer should inform the consumer what is the object that is being sent
-
+        spring.json.type.mapping: paymentConfirmation:com.skymat.ecommerce.notification.PaymentNotificationRequest #the producer should inform the consumer what is the object that is being sent
 server:
-  port: 8070
-
-application:
-  config: # later these ports will be changed to API Gateway port (8221)
-    customer-url: http://localhost:8222/api/v1/customers #url to connect to customer service
-    payment-url: http://localhost:8222/api/v1/payments #url to connect to payment service
-    product-url: http://localhost:8222/api/v1/proucts #url to connect to product service
+  port: 8060
