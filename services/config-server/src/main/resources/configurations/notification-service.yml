@@ -4,7 +4,7 @@ spring:
     password: user123
     host: localhost
     port: 27017
-    database: customer-db
+    database: notification-db
     authentication-database: admin
 
   kafka:
@@ -12,11 +12,11 @@ spring:
       bootstrap-servers: localhost:9092 #the same configs we put for kafka server
       group-id: paymentGroup, orderGroup
       auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringSerializer #to tell Kafka what is the serializer of our msgs
-      value-deserializer: org.springframework.kafka.support.serializer.JsonSerializer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeSerializer #to tell Kafka what is the serializer of our msgs
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeSerializer
       properties:
         spring.json.trusted.packages: '*' # * is used in development end
-        spring.json.type.mapping: orderConfirmation:com.skymat.ecommerce.kafka.OrderConfirmation,paymentConfirmation:com.skymat.ecommerce.notification.PaymentNotificationRequest #the producer should inform the consumer what is the object that is being sent
+        spring.json.type.mapping: orderConfirmation:com.skymat.ecommerce.kafka.order.OrderConfirmation,paymentConfirmation:com.skymat.ecommerce.kafka.payment.PaymentConfirmation #the producer should inform the consumer what is the object that is being sent (path tp the objects in notification service)
   mail:
     host: localhost
     port: 1025

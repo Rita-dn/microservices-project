@@ -1,0 +1,33 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true #when it is true, it means that we need to connect to the discovery service, so that it fetches all available instances and microservices
+      routes:
+        - id: customer-service #same id of our service
+          uri: lb:http://CUSTOMER-SERVICE  #lb->load balancing, this is the service id in the eureka service
+          predicates: #depending on which predicates the urls are going to be routed
+            - Path=/api/v1/customers/**
+
+        - id: order-service #same id of our service
+          uri: lb:http://ORDER-SERVICE  #lb->load balancing, this is the service id in the eureka service
+          predicates: #depending on which predicates the urls are going to be routed
+            - Path=/api/v1/orders/**
+
+        - id: order-lines-service
+          uri: lb:http://ORDER-SERVICE  #all requests to order-lines will be routed to order-service
+          predicates:
+            - Path=/api/v1/order-lines/**
+
+        - id: product-service
+          uri: lb:http://PRODUCT-SERVICE  #all requests to order-lines will be routed to order-service
+          predicates:
+            - Path=/api/v1/products/**
+
+        - id: payment-service     # this service is not exposed to the user, but it is needed because the order service calls it
+          uri: lb:http://PAYMENT-SERVICE
+          predicates:
+            - Path=/api/v1/payments/**
+server:
+  port: 8222
