@@ -1,7 +1,9 @@
 package com.skymat.ecommerce.orderline;
 
 import com.skymat.ecommerce.order.Order;
+import org.springframework.stereotype.Service;
 
+@Service
 public class OrderLineMapper {
     public OrderLine toOrderLine(OrderLineRequest request) {
         return OrderLine.builder()

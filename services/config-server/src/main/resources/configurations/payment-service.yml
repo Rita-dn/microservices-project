@@ -1,16 +1,15 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/order_db
+    url: jdbc:postgresql://localhost:5432/payment_db
     username: postgres
     password: user123
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: validate # to rely on FlyWay to create the db
+      ddl-auto: create
     database: POSTGRESQL
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-  config:
-    import: optional:configserver:http://localhost:8888
+
   kafka:
     producer:
       bootstrap-servers: localhost:9092 #the same configs we put for kafka server

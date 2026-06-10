@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="EntryPointsManager">
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.ExceptionHandler" />
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="org.springframework.kafka.annotation.KafkaListener" />
+      <item index="1" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.ExceptionHandler" />
     </list>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
@@ -15,6 +16,8 @@
         <option value="$PROJECT_DIR$/services/product-service/pom.xml" />
         <option value="$PROJECT_DIR$/services/order-service/pom.xml" />
         <option value="$PROJECT_DIR$/services/payment-service/pom.xml" />
+        <option value="$PROJECT_DIR$/services/notification-service/pom.xml" />
+        <option value="$PROJECT_DIR$/services/gateway/pom.xml" />
       </list>
     </option>
   </component>

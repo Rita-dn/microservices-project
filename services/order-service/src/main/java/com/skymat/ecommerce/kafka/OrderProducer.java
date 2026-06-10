@@ -17,7 +17,7 @@ public class OrderProducer {
 
     //Produce a msg to kafka topic
     public void sendOrderConfirmation(OrderConfirmation orderConfirmation) {
-        log.info("Sending order confirmation");
+        log.info("Sending order confirmation with body <{}>", orderConfirmation);
         Message<OrderConfirmation> msg = MessageBuilder
                 .withPayload(orderConfirmation)
                 .setHeader(KafkaHeaders.TOPIC, "order-topic") // the exact name of the topic that we have created
